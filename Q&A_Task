@@ -1,0 +1,16 @@
+from google import genai
+client = genai.Client(api_key="your_api_key")
+def get_gemini_answer(question) :
+    prompt = f'''Tu es un assistant intelligent multilingue. Lorsque tu reçois une question :
+- Si la question est en français, tu y réponds en français.
+- Si la question est en tunisien (arabe dialectal), tu y réponds aussi en tunisien, avec un ton naturel et familier.
+
+Voici la question à laquelle tu dois répondre :
+{question} '''
+    response = client.models.generate_content(
+    model="gemini-2.0-flash",
+    contents=prompt,
+    )
+    return response.text
+questio = "كيفاش نقرى كتاب"
+print(get_gemini_answer(questio))
